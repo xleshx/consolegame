@@ -1,5 +1,5 @@
 group 'local.playground'
-version '1.0-SNAPSHOT'
+version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: "groovy"
@@ -13,8 +13,7 @@ repositories {
 }
 
 dependencies {
-    compile "org.codehaus.groovy:groovy-all:2.4.1"
-
+    testCompile "org.codehaus.groovy:groovy-all:2.4.1"
     testCompile 'junit:junit:4.+'
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
     testRuntime "cglib:cglib-nodep:3.1"
