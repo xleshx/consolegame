@@ -1,0 +1,31 @@
+group 'local.playground'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: "groovy"
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+mainClassName = "local.playground.game.Start"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.1"
+
+    testCompile 'junit:junit:4.+'
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testRuntime "cglib:cglib-nodep:3.1"
+}
+
+apply from: "gradle/ide.gradle"
+
+task collectJars(type: Copy) {
+    into "$buildDir/output/lib"
+    from configurations.testRuntime
+}
+
+
+
