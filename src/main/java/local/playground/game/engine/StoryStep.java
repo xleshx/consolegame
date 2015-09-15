@@ -8,8 +8,6 @@ import java.util.Collection;
  * Story Step interface.
  */
 public interface StoryStep extends Serializable {
-
-
     /**
      * Called from within main game loop in the Engine.
      * @param action

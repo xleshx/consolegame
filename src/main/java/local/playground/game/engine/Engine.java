@@ -79,10 +79,11 @@ public class Engine implements Serializable{
     public void logic() {
         Screen screen = new LocationScreen(this.currentStoryStep);
         console.render(screen);
+        this.currentStoryStep.getMessages().clear();
         Action action = readActionSafely();
         processAdditionalData(action);
-
         this.currentStoryStep = this.currentStoryStep.process(action, character);
+
     }
 
     private Action readActionSafely(){

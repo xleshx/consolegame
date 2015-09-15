@@ -63,7 +63,7 @@ public class Config implements Serializable{
         StoryStep storyStep = new BasicStoryStep(location);
 
         storyStep.getActions().add(
-            new MoveAction("To the ship", "Activate engine and move to the ship direction",getAirDockStory()));
+            new MoveAction("To the ship", "Activate engine and move to the ship direction", getAirDockStory()));
         storyStep.getActions().add(new SaveGameAction("Save Game", "Save Game", this.engine));
 
         return storyStep;
@@ -94,9 +94,15 @@ public class Config implements Serializable{
             .setDescription(AsciiArtData.CORRIDOR +
                 "You are inside the ship. It's rather dark in here and no sign of any life form .\n ");
         StoryStep storyStep = new BasicStoryStep(location);
+
+        StoryStep backStep = getBackwardStory();
+
         storyStep.getActions().add(new MoveAction("Move forward", "Move forward", getFinalStory()));
-        storyStep.getActions().add(new MoveAction("Move backward", "Move backward", getBackwardStory()));
+        storyStep.getActions().add(new MoveAction("Move backward", "Move backward", backStep));
         storyStep.getActions().add(new SaveGameAction("Save Game", "Save Game", this.engine));
+
+        backStep.getActions().add(new MoveAction("Move backward", "Move backward", storyStep));
+        backStep.getActions().add(new SaveGameAction("Save Game", "Save Game", this.engine));
 
         return storyStep;
     }
@@ -104,16 +110,17 @@ public class Config implements Serializable{
     public StoryStep getBackwardStory() {
 
         Location location = new Location()
-            .setName("Near the air docks")
-            .setDescription(AsciiArtData.CORRIDOR +"You are near ship's dock.\n ");
+            .setName("Dark spaceship's corridor")
+            .setDescription(AsciiArtData.CORRIDOR +"Dark spaceship's corridor.\n ");
 
         location.getEntities().add(new Entity("Something within the spacesuit", 10, Entity.State.AGGRESSIVE, new Item("Axe", "Axe", 0.2d)));
 
         StoryStep storyStep = new BasicStoryStep(location);
 
+        StoryStep next = getFartherStory();
+        storyStep.getActions().add(new MoveAction("Move farther", "Move farther", next));
 
-        storyStep.getActions().add(new SaveGameAction("Save Game", "Save Game", this.engine));
-        storyStep.getActions().add(new MoveAction("Move farther", "Move farther", getFartherStory()));
+        next.getActions().add(new MoveAction("Move back", "Move back", storyStep));
 
         return storyStep;
     }
@@ -161,7 +168,7 @@ public class Config implements Serializable{
         Location location = new Location()
             .setName("Final")
             .setDescription("You go farther and farther inside the ship. " +
-                "You have got lost and see no hope for escape out of this place." +
+                "You get lost and see no hope for escape out of this place." +
                 "\n TO BE CONTINUED...");
 
         StoryStep storyStep = new BasicStoryStep(location);
