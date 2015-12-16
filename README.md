@@ -6,8 +6,10 @@ Java project of RPG\Adventure text based game engine.
 Project build with [Gradle build tool](https://gradle.org/).
 
 [gradlew](https://docs.gradle.org/current/userguide/gradle_wrapper.html) script included for both win/nix.
+
 Add execution permission for gradlew file
 chmod u+x gradlew
+
 then just run 
 `./gradlew buildZip`
 or 
